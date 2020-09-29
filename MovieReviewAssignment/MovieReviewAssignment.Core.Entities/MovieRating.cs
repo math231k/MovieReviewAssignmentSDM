@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MovieReviewAssignment.Core
+namespace MovieReviewAssignment.Core.Entities
 {
     public class Class1
     {
