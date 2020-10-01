@@ -66,8 +66,34 @@ namespace XUnitTestProject
 
 
             //ACT
-            double result = rs.GetAverageRateFromReviewer(reviewer); //<- Virker ikke endnu <-
+            double result = rs.GetAverageRateFromReviewer(reviewer);
 
+
+            //ASSERT
+            Assert.Equal(expected, result);
+            repoMock.Verify(repo => repo.GetAllMovieRatings(), Times.Once);
+        }
+
+
+        //Opgave 3
+        [Theory]
+        [InlineData(1, 5, 1)]
+        [InlineData(1, 4, 1)]
+        [InlineData(2, 3, 1)]
+
+        public void NumberOfRatesByReviewer(int reviewer, int grade, int expected)
+        {
+            //ARRANGE
+            ratings = new List<MovieRating>()
+            {
+                new MovieRating(1, 1, 5, DateTime.Now),
+                new MovieRating(1, 2, 4, DateTime.Now),
+                new MovieRating(2, 1, 3, DateTime.Now)
+            };
+            ReviewService rs = new ReviewService(repoMock.Object);
+
+            //ACT
+            int result = rs.GetNumberOfRatesByReviewer(reviewer, grade);
 
             //ASSERT
             Assert.Equal(expected, result);

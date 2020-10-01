@@ -36,6 +36,15 @@ namespace MovieReviewAssignment.Core.Implementation
             
         }
 
+        //opg 3
+        public int GetNumberOfRatesByReviewer(int reviewer, int rate)
+        {
+            return _reviewRepo.GetAllMovieRatings()
+                .Where(r => r.Reviewer == reviewer)
+                .Where(g => g.Grade == rate)
+                .Count();
+        }
+
         public double GetAverageRateOfMovie(int movie)
         {
             throw new NotImplementedException();
@@ -71,10 +80,6 @@ namespace MovieReviewAssignment.Core.Implementation
             throw new NotImplementedException();
         }
 
-        public int GetNumberOfRatesByReviewer(int reviewer, int rate)
-        {
-            throw new NotImplementedException();
-        }
 
         public int GetNumberOfReviews(int movie)
         {
