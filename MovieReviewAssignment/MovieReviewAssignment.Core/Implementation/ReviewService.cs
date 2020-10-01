@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MovieReviewAssignment.Core.Implementation
 {
@@ -14,9 +15,25 @@ namespace MovieReviewAssignment.Core.Implementation
             _reviewRepo = reviewRepo;
         }
 
+        //opg 1
+        public int GetNumberOfReviewsFromReviewer(int reviewer)
+        {
+            return _reviewRepo.GetAllMovieRatings()
+                .Where(r => r.Reviewer == reviewer)
+                .Count();
+        }
+
+        //opg 2
         public double GetAverageRateFromReviewer(int reviewer)
         {
-            throw new NotImplementedException();       
+
+            var result = _reviewRepo.GetAllMovieRatings()
+                .Where(r => r.Reviewer == reviewer)
+                .Select(x => x.Grade)
+                .Average();
+
+            return result;
+            
         }
 
         public double GetAverageRateOfMovie(int movie)
@@ -29,6 +46,7 @@ namespace MovieReviewAssignment.Core.Implementation
             throw new NotImplementedException();
         }
 
+        //opg 7
         public List<int> GetMoviesWithHighestNumberOfTopRates()
         {
             var rating5 = _reviewRepo.GetAllMovieRatings()
@@ -63,13 +81,6 @@ namespace MovieReviewAssignment.Core.Implementation
             throw new NotImplementedException();
         }
 
-        //Opgave 1
-        public int GetNumberOfReviewsFromReviewer(int reviewer)
-        {
-            return _reviewRepo.GetAllMovieRatings()
-                .Where(r => r.Reviewer == reviewer)
-                .Count();
-        }
 
         public List<int> GetReviewersByMovie(int movie)
         {
