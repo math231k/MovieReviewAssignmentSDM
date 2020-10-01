@@ -46,6 +46,61 @@ namespace XUnitTestProject
             //ASSERT
             Assert.Equal(expected, result);
             repoMock.Verify(repo => repo.GetAllMovieRatings(), Times.Once);
+        }
+
+        //Opgave 2
+        [Theory]
+        [InlineData(1, 3)]
+        [InlineData(2, 4)]
+        [InlineData(3, 5)]
+        public void AverageRateFromReviewer(int reviewer, int expected)
+        {
+            //ARRANGE
+            ratings = new List<MovieRating>()
+            {
+                new MovieRating(1, 1, 3, DateTime.Now),
+                new MovieRating(2, 1, 4, DateTime.Now),
+                new MovieRating(3, 1, 5, DateTime.Now)
+            };
+            ReviewService rs = new ReviewService(repoMock.Object);
+
+
+            //ACT
+            double result = rs.GetAverageRateFromReviewer(reviewer); //<- Virker ikke endnu <-
+
+
+            //ASSERT
+            Assert.Equal(expected, result);
+            repoMock.Verify(repo => repo.GetAllMovieRatings(), Times.Once);
+
+        }
+
+        //Opgave 7
+        [Fact]
+        public void GetMoviesWithHighestNumberOfTopRates()
+        {
+            //ARRANGE
+            ratings = new List<MovieRating>()
+            {
+                new MovieRating(1, 1, 5, DateTime.Now),
+                new MovieRating(1, 2, 5, DateTime.Now),
+
+                new MovieRating(2, 1, 4, DateTime.Now),
+                new MovieRating(2, 2, 5, DateTime.Now),
+
+                new MovieRating(2, 3, 5, DateTime.Now),
+                new MovieRating(3, 3, 5, DateTime.Now),
+            };
+            ReviewService rs = new ReviewService(repoMock.Object);
+
+            List<int> expected = new List<int>() { 2, 3 };
+
+            //ACT
+            var result = rs.GetMoviesWithHighestNumberOfTopRates();
+
+            //ASSERT
+            Assert.Equal(expected, result);
+            repoMock.Verify(repo => repo.GetAllMovieRatings(), Times.Once);
 
         }
         

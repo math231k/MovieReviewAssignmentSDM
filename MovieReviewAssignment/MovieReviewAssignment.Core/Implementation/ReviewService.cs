@@ -16,7 +16,7 @@ namespace MovieReviewAssignment.Core.Implementation
 
         public double GetAverageRateFromReviewer(int reviewer)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException();       
         }
 
         public double GetAverageRateOfMovie(int movie)
@@ -31,7 +31,21 @@ namespace MovieReviewAssignment.Core.Implementation
 
         public List<int> GetMoviesWithHighestNumberOfTopRates()
         {
-            throw new NotImplementedException();
+            var rating5 = _reviewRepo.GetAllMovieRatings()
+                .Where(r => r.Grade == 5)
+                .GroupBy(r => r.Movie)
+                .Select(group => new
+                {
+                    Movie = group.Key,
+                    Grade5 = group.Count()
+                });
+
+            int ratingWith5 = rating5.Max(grp => grp.Grade5);
+
+            return rating5
+                .Where(grp => grp.Grade5 == ratingWith5)
+                .Select(grp => grp.Movie)
+                .ToList();
         }
 
         public int GetNumberOfRates(int movie, int rate)
