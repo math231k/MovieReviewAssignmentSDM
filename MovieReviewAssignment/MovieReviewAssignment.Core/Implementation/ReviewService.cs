@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Diagnostics.CodeAnalysis;
+using MovieReviewAssignment.Core.Entities;
 
 namespace MovieReviewAssignment.Core.Implementation
 {
@@ -13,6 +14,24 @@ namespace MovieReviewAssignment.Core.Implementation
         public ReviewService(IReviewRepository reviewRepo)
         {
             _reviewRepo = reviewRepo;
+        }
+
+        public int NumberOfMoviesWithGrade(int grade)
+        {
+            if (grade < 1 || grade > 5)
+            {
+                throw new ArgumentException("Grade must be 1 - 5");
+            }
+
+            HashSet<int> movies = new HashSet<int>();
+            foreach (MovieRating rating in _reviewRepo.GetAllMovieRatings())
+            {
+                if (rating.Grade == grade)
+                {
+                    movies.Add(rating.Movie);
+                }
+            }
+            return movies.Count;
         }
 
         //opg 1
@@ -63,7 +82,9 @@ namespace MovieReviewAssignment.Core.Implementation
                 .Average();
         }
 
-        public List<int> GetMostProductiveReviewers()
+
+        //opg 6
+        public int GetNumberOfRates(int movie, int rate)
         {
             throw new NotImplementedException();
         }
@@ -88,26 +109,31 @@ namespace MovieReviewAssignment.Core.Implementation
                 .ToList();
         }
 
-        public int GetNumberOfRates(int movie, int rate)
+        //opg 8
+        public List<int> GetMostProductiveReviewers()
         {
             throw new NotImplementedException();
         }
 
 
-
-        public List<int> GetReviewersByMovie(int movie)
+        //opg 9
+        public List<int> GetTopRatedMovies(int amount)
         {
             throw new NotImplementedException();
         }
 
+        //opg 10
         public List<int> GetTopMoviesByReviewer(int reviewer)
         {
             throw new NotImplementedException();
         }
 
-        public List<int> GetTopRatedMovies(int amount)
+        //opg 10
+        public List<int> GetReviewersByMovie(int movie)
         {
             throw new NotImplementedException();
         }
+
+
     }
 }
