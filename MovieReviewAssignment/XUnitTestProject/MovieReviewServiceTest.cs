@@ -53,7 +53,7 @@ namespace XUnitTestProject
         [InlineData(1, 3)]
         [InlineData(2, 4)]
         [InlineData(3, 5)]
-        public void AverageRateFromReviewer(int reviewer, int expected)
+        public void AverageRateFromReviewer(int reviewer, double expected)
         {
             //ARRANGE
             ratings = new List<MovieRating>()
@@ -100,6 +100,59 @@ namespace XUnitTestProject
             repoMock.Verify(repo => repo.GetAllMovieRatings(), Times.Once);
 
         }
+
+        //Opgave 4
+        [Theory]
+        [InlineData(1, 3)]
+        [InlineData(2, 2)]
+        [InlineData(3, 1)]
+        public void NumberOfReviewsOnMovie(int movie, int expected)
+        {
+            //ARRANGE
+            ratings = new List<MovieRating>()
+            {
+                new MovieRating(1, 1, 3, DateTime.Now),
+                new MovieRating(2, 1, 2, DateTime.Now),
+                new MovieRating(3, 1, 3, DateTime.Now),
+                new MovieRating(1, 2, 2, DateTime.Now),
+                new MovieRating(2, 2, 3, DateTime.Now),
+                new MovieRating(3, 3, 5, DateTime.Now)
+            };
+            ReviewService rs = new ReviewService(repoMock.Object);
+
+            //ACT
+            int result = rs.GetNumberOfReviews(movie);
+
+            //ASSERT
+            Assert.Equal(expected, result);
+            repoMock.Verify(repo => repo.GetAllMovieRatings(), Times.Once);
+        }
+
+        //Opgave 5
+        [Theory]
+        [InlineData(1, 3)]
+        [InlineData(2, 4)]
+        public void AverageRatingOnMovie(int movie, double average)
+        {
+            //ARRANGE
+            ratings = new List<MovieRating>()
+            {
+                new MovieRating(1, 1, 2, DateTime.Now),
+                new MovieRating(2, 1, 4, DateTime.Now),
+                new MovieRating(2, 2, 5, DateTime.Now),
+                new MovieRating(3, 2, 3, DateTime.Now)
+            };
+            ReviewService rs = new ReviewService(repoMock.Object);
+
+            //ACT
+            double result = rs.GetAverageRateOfMovie(movie);
+
+            //ASSERT
+            Assert.Equal(average, result);
+            repoMock.Verify(repo => repo.GetAllMovieRatings(), Times.Once);
+        }
+
+
 
         //Opgave 7
         [Fact]

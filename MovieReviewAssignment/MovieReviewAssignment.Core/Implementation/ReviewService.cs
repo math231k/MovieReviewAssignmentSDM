@@ -45,9 +45,22 @@ namespace MovieReviewAssignment.Core.Implementation
                 .Count();
         }
 
+        //opg 4
+        public int GetNumberOfReviews(int movie)
+        {
+            return _reviewRepo.GetAllMovieRatings()
+                .Where(r => r.Movie == movie)
+                .Select(x => x.Grade)
+                .Count();
+        }
+
+        //opg 5
         public double GetAverageRateOfMovie(int movie)
         {
-            throw new NotImplementedException();
+            return _reviewRepo.GetAllMovieRatings()
+                .Where(r => r.Movie == movie)
+                .Select(x => x.Grade)
+                .Average();
         }
 
         public List<int> GetMostProductiveReviewers()
@@ -80,11 +93,6 @@ namespace MovieReviewAssignment.Core.Implementation
             throw new NotImplementedException();
         }
 
-
-        public int GetNumberOfReviews(int movie)
-        {
-            throw new NotImplementedException();
-        }
 
 
         public List<int> GetReviewersByMovie(int movie)
