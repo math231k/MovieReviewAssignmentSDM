@@ -4,6 +4,7 @@ using System.Text;
 using System.Linq;
 using System.Diagnostics.CodeAnalysis;
 using MovieReviewAssignment.Core.Entities;
+using System.Security.Cryptography.X509Certificates;
 
 namespace MovieReviewAssignment.Core.Implementation
 {
@@ -86,7 +87,10 @@ namespace MovieReviewAssignment.Core.Implementation
         //opg 6
         public int GetNumberOfRates(int movie, int rate)
         {
-            throw new NotImplementedException();
+            return _reviewRepo.GetAllMovieRatings()
+                .Where(m => m.Movie == movie)
+                .Where(g => g.Grade == rate)
+                .Count();
         }
 
         //opg 7
@@ -112,26 +116,69 @@ namespace MovieReviewAssignment.Core.Implementation
         //opg 8
         public List<int> GetMostProductiveReviewers()
         {
-            throw new NotImplementedException();
+            var productivity = _reviewRepo.GetAllMovieRatings()
+                .GroupBy(r => r.Reviewer)
+                .Select(group => new
+                {
+                    Reviewer = group.Key,
+                    Reviews = group.Count()
+                }
+                );
+
+            var mostProductiveReviewer = productivity.Max(grp => grp.Reviews);
+
+            return productivity
+                .Where(grp => grp.Reviews == mostProductiveReviewer).
+                Select(grp => grp.Reviewer).
+                ToList();
         }
 
 
         //opg 9
         public List<int> GetTopRatedMovies(int amount)
         {
-            throw new NotImplementedException();
+
+            var ratings = _reviewRepo.GetAllMovieRatings().
+                GroupBy(m => m.Movie).
+                Select(group => new 
+                { 
+                    Movie = group.Key,
+                    Rating = group.Average(x => x.Grade)
+                   
+                });
+
+            var results = ratings.
+                OrderByDescending(grp => grp.Rating).
+                ThenBy(grp => grp.Movie).
+                Select(grp => grp.Movie).
+                Take(amount).
+                ToList();
+
+            return results;
+
         }
 
         //opg 10
         public List<int> GetTopMoviesByReviewer(int reviewer)
         {
-            throw new NotImplementedException();
+
+            return _reviewRepo.GetAllMovieRatings().
+                Where(grp => grp.Reviewer == reviewer).
+                OrderByDescending(grp => grp.Grade).
+                ThenBy(grp => grp.Date).
+                Select(grp => grp.Movie).
+                ToList();
         }
 
-        //opg 10
+        //opg 11
         public List<int> GetReviewersByMovie(int movie)
         {
-            throw new NotImplementedException();
+            return _reviewRepo.GetAllMovieRatings().
+                Where(grp => grp.Movie == movie).
+                OrderByDescending(grp => grp.Grade).
+                ThenByDescending(grp => grp.Date).
+                Select(grp => grp.Reviewer).
+                ToList();
         }
 
 
