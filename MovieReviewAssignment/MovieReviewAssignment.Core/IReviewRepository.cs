@@ -7,6 +7,6 @@ namespace MovieReviewAssignment.Core
 {
     public interface IReviewRepository
     {
-        MovieRating[] Ratings { get; }
+        public List<MovieRating> GetAllMovieRatings();
     }
 }
