@@ -7,11 +7,13 @@ namespace XUnitTestProject___PerformanceTest
 {
     public class TestFixture : IDisposable
     {
-        const string JSÒN_FILE_NAME = @"C:\Users\math2\Documents\GitHub\MovieReviewAssignmentSDM\MovieReviewAssignment\MovieReviewAssignment.Infrastructure\ratings.json";
+        const string JSÒN_FILE_NAME = @"C:\Users\Rizvan\Documents\GitHub\MovieReviewAssignmentSDM\MovieReviewAssignment\MovieReviewAssignment.Infrastructure\ratings.json";
 
         public IReviewRepository Repository {get; private set;}
         public int ReviewerMostReviews { get; private set; }
         public int MovieMostReviews { get; private set; }
+        public int NumberOfRates { get; private set; }
+        public int MovieNumberOfReviews { get; private set; }
         public TestFixture()
         {
             Repository = new ReviewRepository(JSÒN_FILE_NAME);
@@ -37,6 +39,8 @@ namespace XUnitTestProject___PerformanceTest
                 .OrderByDescending(grp => grp.reviews)
                 .Select(grp => grp.movie)
                 .FirstOrDefault();
+
+
         }
 
         public void Dispose()

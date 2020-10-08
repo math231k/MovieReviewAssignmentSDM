@@ -25,7 +25,7 @@ namespace MovieReviewAssignment.Core.Implementation
             }
 
             HashSet<int> movies = new HashSet<int>();
-            foreach (MovieRating rating in _reviewRepo.GetAllMovieRatings())
+            foreach (MovieRating rating in _reviewRepo.Ratings)
             {
                 if (rating.Grade == grade)
                 {
@@ -38,7 +38,7 @@ namespace MovieReviewAssignment.Core.Implementation
         //opg 1
         public int GetNumberOfReviewsFromReviewer(int reviewer)
         {
-            return _reviewRepo.GetAllMovieRatings()
+            return _reviewRepo.Ratings
                 .Where(r => r.Reviewer == reviewer)
                 .Count();
         }
@@ -47,7 +47,7 @@ namespace MovieReviewAssignment.Core.Implementation
         public double GetAverageRateFromReviewer(int reviewer)
         {
 
-            var result = _reviewRepo.GetAllMovieRatings()
+            var result = _reviewRepo.Ratings
                 .Where(r => r.Reviewer == reviewer)
                 .Select(x => x.Grade)
                 .Average();
@@ -59,7 +59,7 @@ namespace MovieReviewAssignment.Core.Implementation
         //opg 3
         public int GetNumberOfRatesByReviewer(int reviewer, int rate)
         {
-            return _reviewRepo.GetAllMovieRatings()
+            return _reviewRepo.Ratings
                 .Where(r => r.Reviewer == reviewer)
                 .Where(g => g.Grade == rate)
                 .Count();
@@ -68,7 +68,7 @@ namespace MovieReviewAssignment.Core.Implementation
         //opg 4
         public int GetNumberOfReviews(int movie)
         {
-            return _reviewRepo.GetAllMovieRatings()
+            return _reviewRepo.Ratings
                 .Where(r => r.Movie == movie)
                 .Select(x => x.Grade)
                 .Count();
@@ -77,7 +77,7 @@ namespace MovieReviewAssignment.Core.Implementation
         //opg 5
         public double GetAverageRateOfMovie(int movie)
         {
-            return _reviewRepo.GetAllMovieRatings()
+            return _reviewRepo.Ratings
                 .Where(r => r.Movie == movie)
                 .Select(x => x.Grade)
                 .Average();
@@ -87,7 +87,7 @@ namespace MovieReviewAssignment.Core.Implementation
         //opg 6
         public int GetNumberOfRates(int movie, int rate)
         {
-            return _reviewRepo.GetAllMovieRatings()
+            return _reviewRepo.Ratings
                 .Where(m => m.Movie == movie)
                 .Where(g => g.Grade == rate)
                 .Count();
@@ -96,7 +96,7 @@ namespace MovieReviewAssignment.Core.Implementation
         //opg 7
         public List<int> GetMoviesWithHighestNumberOfTopRates()
         {
-            var rating5 = _reviewRepo.GetAllMovieRatings()
+            var rating5 = _reviewRepo.Ratings
                 .Where(r => r.Grade == 5)
                 .GroupBy(r => r.Movie)
                 .Select(group => new
@@ -116,7 +116,7 @@ namespace MovieReviewAssignment.Core.Implementation
         //opg 8
         public List<int> GetMostProductiveReviewers()
         {
-            var productivity = _reviewRepo.GetAllMovieRatings()
+            var productivity = _reviewRepo.Ratings
                 .GroupBy(r => r.Reviewer)
                 .Select(group => new
                 {
@@ -138,7 +138,7 @@ namespace MovieReviewAssignment.Core.Implementation
         public List<int> GetTopRatedMovies(int amount)
         {
 
-            var ratings = _reviewRepo.GetAllMovieRatings().
+            var ratings = _reviewRepo.Ratings.
                 GroupBy(m => m.Movie).
                 Select(group => new 
                 { 
@@ -162,7 +162,7 @@ namespace MovieReviewAssignment.Core.Implementation
         public List<int> GetTopMoviesByReviewer(int reviewer)
         {
 
-            return _reviewRepo.GetAllMovieRatings().
+            return _reviewRepo.Ratings.
                 Where(grp => grp.Reviewer == reviewer).
                 OrderByDescending(grp => grp.Grade).
                 ThenBy(grp => grp.Date).
@@ -173,7 +173,7 @@ namespace MovieReviewAssignment.Core.Implementation
         //opg 11
         public List<int> GetReviewersByMovie(int movie)
         {
-            return _reviewRepo.GetAllMovieRatings().
+            return _reviewRepo.Ratings.
                 Where(grp => grp.Movie == movie).
                 OrderByDescending(grp => grp.Grade).
                 ThenByDescending(grp => grp.Date).

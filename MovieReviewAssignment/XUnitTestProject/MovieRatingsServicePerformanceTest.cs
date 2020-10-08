@@ -16,6 +16,8 @@ namespace XUnitTestProject___PerformanceTest
 
         private int reviewerMostReviews;
         private int movieMostReviews;
+        private int movieNumberOfReviews;
+        private int numberOfRates;
 
 
         public MovieRatingsServiceLinqPerformanceTest(TestFixture data)
@@ -23,6 +25,8 @@ namespace XUnitTestProject___PerformanceTest
             repository = data.Repository;
             reviewerMostReviews = data.ReviewerMostReviews;
             movieMostReviews = data.MovieMostReviews;
+            numberOfRates = data.NumberOfRates;
+            movieNumberOfReviews = data.MovieNumberOfReviews;
         }
 
         private double TimeInSeconds(Action ac)
@@ -40,10 +44,63 @@ namespace XUnitTestProject___PerformanceTest
 
             double seconds = TimeInSeconds(() =>
             {
-                int result = mrs.GetNumberOfReviewsFromReviewer(reviewerMostReviews);
+                int result = mrs.GetNumberOfReviewsFromReviewer(1);
             });
 
             Assert.True(seconds <= 4);
         }
+
+        [Fact]
+        public void GetAverageRateFromReviewer()
+        {
+            IReviewService mrs = new ReviewService(repository);
+
+            double seconds = TimeInSeconds(() =>
+            {
+                int result = (int)mrs.GetAverageRateFromReviewer(1);
+            });
+
+            Assert.True(seconds <= 4);
+        }
+
+        [Fact]
+        public void GetNumberOfRatesByReviewer()
+        {
+            IReviewService mrs = new ReviewService(repository);
+
+            double seconds = TimeInSeconds(() =>
+            {
+                int result = mrs.GetNumberOfRatesByReviewer(1, 1);
+            });
+
+            Assert.True(seconds <= 4);
+        }
+
+        [Fact]
+        public void GetNumberOfReviews()
+        {
+            IReviewService mrs = new ReviewService(repository);
+
+            double seconds = TimeInSeconds(() =>
+            {
+                int result = mrs.GetNumberOfReviews(1);
+            });
+
+            Assert.True(seconds <= 4);
+        }
+
+        [Fact]
+        public void TopRatedMovies()
+        {
+            IReviewService mrs = new ReviewService(repository);
+
+            double seconds = TimeInSeconds(() =>
+            {
+                List<int> result = mrs.GetTopRatedMovies(1);
+            });
+
+            Assert.True(seconds <= 4);
+        }
+
     }
 }
