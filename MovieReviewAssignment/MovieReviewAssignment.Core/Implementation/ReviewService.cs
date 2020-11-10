@@ -154,6 +154,7 @@ namespace MovieReviewAssignment.Core.Implementation
                 Take(amount).
                 ToList();
 
+            Console.WriteLine(results.Count());
             return results;
 
         }

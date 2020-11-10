@@ -7,7 +7,7 @@ namespace XUnitTestProject___PerformanceTest
 {
     public class TestFixture : IDisposable
     {
-        const string JSÒN_FILE_NAME = @"C:\Users\Rizvan\Documents\GitHub\MovieReviewAssignmentSDM\MovieReviewAssignment\MovieReviewAssignment.Infrastructure\ratings.json";
+        const string JSÒN_FILE_NAME = @"C:\Users\math2\Documents\GitHub\MovieReviewAssignmentSDM\MovieReviewAssignment\MovieReviewAssignment.Infrastructure\ratings.json";
 
         public IReviewRepository Repository {get; private set;}
         public int ReviewerMostReviews { get; private set; }

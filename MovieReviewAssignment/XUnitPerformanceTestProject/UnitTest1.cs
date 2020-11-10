@@ -13,10 +13,10 @@ namespace XUnitPerformanceTestProject
         private List<MovieRating> ratings = null;
         private readonly Mock<IReviewRepository> repoMock;
 
-        public MovieReviewServiceTest()
+        public UnitTest1()
         {
             repoMock = new Mock<IReviewRepository>();
-            repoMock.Setup(repo => repo.GetAllMovieRatings()).Returns(() => ratings);
+            repoMock.Setup(repo => repo.Ratings).Returns(() => ratings.ToArray());
         }
 
 
@@ -43,7 +43,7 @@ namespace XUnitPerformanceTestProject
 
             //ASSERT
             Assert.Equal(expected, result);
-            repoMock.Verify(repo => repo.GetAllMovieRatings(), Times.Once);
+            repoMock.Verify(repo => repo.Ratings, Times.Once);
         }
 
         //Opgave 2
@@ -69,7 +69,7 @@ namespace XUnitPerformanceTestProject
 
             //ASSERT
             Assert.Equal(expected, result);
-            repoMock.Verify(repo => repo.GetAllMovieRatings(), Times.Once);
+            repoMock.Verify(repo => repo.Ratings, Times.Once);
         }
 
 
@@ -95,7 +95,7 @@ namespace XUnitPerformanceTestProject
 
             //ASSERT
             Assert.Equal(expected, result);
-            repoMock.Verify(repo => repo.GetAllMovieRatings(), Times.Once);
+            repoMock.Verify(repo => repo.Ratings, Times.Once);
 
         }
 
@@ -123,7 +123,7 @@ namespace XUnitPerformanceTestProject
 
             //ASSERT
             Assert.Equal(expected, result);
-            repoMock.Verify(repo => repo.GetAllMovieRatings(), Times.Once);
+            repoMock.Verify(repo => repo.Ratings, Times.Once);
         }
 
         //Opgave 5
@@ -147,7 +147,7 @@ namespace XUnitPerformanceTestProject
 
             //ASSERT
             Assert.Equal(average, result);
-            repoMock.Verify(repo => repo.GetAllMovieRatings(), Times.Once);
+            repoMock.Verify(repo => repo.Ratings, Times.Once);
         }
 
         //Opgave 6
@@ -187,7 +187,7 @@ namespace XUnitPerformanceTestProject
             //ASSERT
 
             Assert.Equal(result, expected);
-            repoMock.Verify(repo => repo.GetAllMovieRatings(), Times.Once);
+            repoMock.Verify(repo => repo.Ratings, Times.Once);
 
         }
 
@@ -218,7 +218,7 @@ namespace XUnitPerformanceTestProject
 
             //ASSERT
             Assert.Equal(expected, result);
-            repoMock.Verify(repo => repo.GetAllMovieRatings(), Times.Once);
+            repoMock.Verify(repo => repo.Ratings, Times.Once);
 
         }
 
@@ -250,7 +250,7 @@ namespace XUnitPerformanceTestProject
 
             //ASSERT
             Assert.Equal(expected, result);
-            repoMock.Verify(repo => repo.GetAllMovieRatings(), Times.Once);
+            repoMock.Verify(repo => repo.Ratings, Times.Once);
         }
 
         //Opgave 9
@@ -295,7 +295,7 @@ namespace XUnitPerformanceTestProject
             var result = rs.GetTopRatedMovies(4);
             //ASSERT
             Assert.Equal(expected, result);
-            repoMock.Verify(repo => repo.GetAllMovieRatings(), Times.Once);
+            repoMock.Verify(repo => repo.Ratings, Times.Once);
         }
 
         //Opgave 10
@@ -323,7 +323,7 @@ namespace XUnitPerformanceTestProject
 
             //ASSERT
             Assert.Equal(expected, result);
-            repoMock.Verify(repo => repo.GetAllMovieRatings(), Times.Once);
+            repoMock.Verify(repo => repo.Ratings, Times.Once);
         }
 
         //Opgave 11
@@ -356,7 +356,7 @@ namespace XUnitPerformanceTestProject
 
             //ASSERT
             Assert.Equal(expected, result);
-            repoMock.Verify(repo => repo.GetAllMovieRatings(), Times.Once);
+            repoMock.Verify(repo => repo.Ratings, Times.Once);
         }
     }
 }

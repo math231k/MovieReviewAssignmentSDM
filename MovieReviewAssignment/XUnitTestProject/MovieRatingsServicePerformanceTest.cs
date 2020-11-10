@@ -96,9 +96,9 @@ namespace XUnitTestProject___PerformanceTest
 
             double seconds = TimeInSeconds(() =>
             {
-                List<int> result = mrs.GetTopRatedMovies(1);
+                List<int> result = mrs.GetTopRatedMovies(500000000);
             });
-
+            
             Assert.True(seconds <= 4);
         }
 
